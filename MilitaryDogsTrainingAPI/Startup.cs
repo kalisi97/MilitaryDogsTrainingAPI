@@ -18,7 +18,6 @@ using MilitaryDogsTrainingAPI.BusinessLogicLayer.Interfaces;
 using MilitaryDogsTrainingAPI.Data;
 using MilitaryDogsTrainingAPI.DataAccessLayer.UnitOfWork;
 using MilitaryDogsTrainingAPI.Entities;
-
 namespace MilitaryDogsTrainingAPI
 {
     public class Startup
@@ -33,7 +32,9 @@ namespace MilitaryDogsTrainingAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+       options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IInstructorService, InstructorService>();
             services.AddScoped<ITaskService, TaskService>();

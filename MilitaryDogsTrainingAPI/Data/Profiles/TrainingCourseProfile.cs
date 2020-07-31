@@ -13,6 +13,12 @@ namespace MilitaryDogsTrainingAPI.Data.Profiles
         public TrainingCourseProfile()
         {
             CreateMap<TrainingCourse, TrainingCourseDTO>();
+            CreateMap<TrainingCourse, TrainingCourseForCreationDTO>();
+            CreateMap<TrainingCourse, TrainingCourseToUpdateDTO>();
+            CreateMap<TrainingCourseDTO, TrainingCourse>();
+            CreateMap<TrainingCourseForCreationDTO, TrainingCourse>();
+            CreateMap<TrainingCourseToUpdateDTO, TrainingCourse>();
+
         }
     }
 }

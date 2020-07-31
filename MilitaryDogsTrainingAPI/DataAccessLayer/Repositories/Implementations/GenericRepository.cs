@@ -30,12 +30,13 @@ namespace MilitaryDogsTrainingAPI.DataAccessLayer.Repositories.Implementations
 
         public virtual T GetBy(Expression<Func<T, bool>> filter)
         {
+            
             return context.Set<T>().FirstOrDefault(filter);
         }
 
         public virtual T GetById(params int[] id)
         {  
-           return context.Set<T>().Find(id);
+           return context.Set<T>().Find(id.ElementAt(0));
         }
 
         public virtual void Insert(T entity)

@@ -48,7 +48,58 @@ namespace MilitaryDogsTrainingAPI.Data
 
         private void SeedDogsTable(ApplicationDbContext context)
         {
-            // to implement method
+            TrainingCourse trainingCourse1 = context.TrainingCourses.SingleOrDefault(t => t.TrainingCourseId == 1);
+            TrainingCourse trainingCourse2 = context.TrainingCourses.SingleOrDefault(t => t.TrainingCourseId == 2);
+            TrainingCourse trainingCourse3 = context.TrainingCourses.SingleOrDefault(t => t.TrainingCourseId == 3);
+            TrainingCourse trainingCourse4 = context.TrainingCourses.SingleOrDefault(t => t.TrainingCourseId == 4);
+            TrainingCourse trainingCourse5 = context.TrainingCourses.SingleOrDefault(t => t.TrainingCourseId == 5);
+
+         
+            context.Dogs.AddRange(new Dog()
+            {
+                Breed = "Akita",
+                ChipNumber = "123456789",
+                DateOfBirth = new DateTime(2017, 08, 10),
+                Gender = "Male",
+                Name = "Aki",
+                TrainingCourseId = trainingCourse1.TrainingCourseId
+            },
+            new Dog()
+            {
+                Breed = "Akita",
+                ChipNumber = "123456389",
+                DateOfBirth = new DateTime(2017, 08, 10),
+                Gender = "Female",
+                Name = "Boni",
+                TrainingCourseId = trainingCourse2.TrainingCourseId
+            },
+            new Dog()
+            {
+                Breed = "German Shepherd",
+                ChipNumber = "120456789",
+                DateOfBirth = new DateTime(2018, 06, 10),
+                Gender = "Male",
+                Name = "Leo",
+                TrainingCourseId = trainingCourse3.TrainingCourseId
+            }, new Dog()
+            {
+                Breed = "Belgian Malinois",
+                ChipNumber = "190456789",
+                DateOfBirth = new DateTime(2020, 03, 18),
+                Gender = "Male",
+                Name = "Rocky",
+                TrainingCourseId = trainingCourse4.TrainingCourseId
+            }, new Dog()
+            {
+                Breed = "Sarplaninac",
+                ChipNumber = "110456789",
+                DateOfBirth = new DateTime(2020, 01, 18),
+                Gender = "Male",
+                Name = "Yuriko",
+                TrainingCourseId = trainingCourse5.TrainingCourseId
+            }
+           );
+            context.SaveChanges();
         }
 
         private void SeedUsersTable(ApplicationDbContext context)

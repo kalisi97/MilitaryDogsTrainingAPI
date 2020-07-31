@@ -20,32 +20,34 @@ namespace MilitaryDogsTrainingAPI.BusinessLogicLayer.Implementations
 
         public void Delete(Dog entity)
         {
-            throw new NotImplementedException();
+            unitOfWork.DogRepository.Delete(entity);
+            unitOfWork.Save();
         }
 
         public IQueryable<Dog> GetAll(Expression<Func<Dog, bool>> filter)
         {
-            throw new NotImplementedException();
+            return unitOfWork.DogRepository.GetAll(filter);
         }
 
         public IEnumerable<Dog> GetAll()
         {
-            throw new NotImplementedException();
+            return unitOfWork.DogRepository.GetAll();
         }
 
         public Dog GetBy(Expression<Func<Dog, bool>> filter)
         {
-            throw new NotImplementedException();
+            return unitOfWork.DogRepository.GetBy(filter);
         }
 
         public Dog GetById(params int[] id)
         {
-            throw new NotImplementedException();
+            return unitOfWork.DogRepository.GetById(id);
         }
 
         public void Insert(Dog entity)
         {
-            throw new NotImplementedException();
+            unitOfWork.DogRepository.Insert(entity);
+            unitOfWork.Save();
         }
 
         public IQueryable<Dog> SearchFor(Expression<Func<Dog, bool>> predicate)
@@ -55,7 +57,8 @@ namespace MilitaryDogsTrainingAPI.BusinessLogicLayer.Implementations
 
         public void Update(Dog entity)
         {
-            throw new NotImplementedException();
+            unitOfWork.DogRepository.Update(entity);
+            unitOfWork.Save();
         }
     }
 }

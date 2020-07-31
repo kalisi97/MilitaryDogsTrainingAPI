@@ -139,3 +139,6 @@ C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\bin\D
 C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\obj\Debug\netcoreapp3.0\MilitaryDogsTrainingAPI.csproj.CoreCompileInputs.cache
 C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\obj\Debug\netcoreapp3.0\MilitaryDogsTrainingAPI.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\obj\Debug\netcoreapp3.0\MilitaryDogsTrainingAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\bin\Debug\netcoreapp3.0\Newtonsoft.Json.Bson.dll

@@ -21,7 +21,8 @@ namespace MilitaryDogsTrainingAPI.BusinessLogicLayer.Implementations
 
         public void Delete(TrainingCourse entity)
         {
-            throw new NotImplementedException();
+            unitOfWork.TrainingCourseRepository.Delete(entity);
+            unitOfWork.Save();
         }
 
         public IQueryable<TrainingCourse> GetAll(Expression<Func<TrainingCourse, bool>> filter)
@@ -36,17 +37,19 @@ namespace MilitaryDogsTrainingAPI.BusinessLogicLayer.Implementations
 
         public TrainingCourse GetBy(Expression<Func<TrainingCourse, bool>> filter)
         {
-            throw new NotImplementedException();
+            return unitOfWork.TrainingCourseRepository.GetBy(filter);
+        
         }
 
         public TrainingCourse GetById(params int[] id)
         {
-            throw new NotImplementedException();
+            return unitOfWork.TrainingCourseRepository.GetById(id);
         }
 
         public void Insert(TrainingCourse entity)
         {
-            throw new NotImplementedException();
+            unitOfWork.TrainingCourseRepository.Insert(entity);
+            unitOfWork.Save();
         }
 
         public IQueryable<TrainingCourse> SearchFor(Expression<Func<TrainingCourse, bool>> predicate)
@@ -56,7 +59,8 @@ namespace MilitaryDogsTrainingAPI.BusinessLogicLayer.Implementations
 
         public void Update(TrainingCourse entity)
         {
-            throw new NotImplementedException();
+            unitOfWork.TrainingCourseRepository.Update(entity);
+            unitOfWork.Save();
         }
     }
 }

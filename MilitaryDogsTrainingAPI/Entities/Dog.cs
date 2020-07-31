@@ -11,6 +11,8 @@ namespace MilitaryDogsTrainingAPI.Entities
     {
         public int DogId  { get; set; }
         [Required]
+        public string Name  { get; set; }
+        [Required]
         public string ChipNumber { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy.}")]

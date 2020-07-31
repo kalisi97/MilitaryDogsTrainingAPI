@@ -28,22 +28,23 @@ namespace MilitaryDogsTrainingAPI.BusinessLogicLayer.Implementations
 
         public IEnumerable<Entities.Task> GetAll()
         {
-            throw new NotImplementedException();
+            return unitOfWork.TaskRepository.GetAll();
         }
 
         public Entities.Task GetBy(Expression<Func<Entities.Task, bool>> filter)
         {
-            throw new NotImplementedException();
+            return unitOfWork.TaskRepository.GetBy(filter);
         }
 
         public Entities.Task GetById(params int[] id)
         {
-            throw new NotImplementedException();
+            return unitOfWork.TaskRepository.GetById(id);
         }
 
         public void Insert(Entities.Task entity)
         {
-            throw new NotImplementedException();
+            unitOfWork.TaskRepository.Insert(entity);
+            unitOfWork.Save();
         }
 
         public IQueryable<Entities.Task> SearchFor(Expression<Func<Entities.Task, bool>> predicate)

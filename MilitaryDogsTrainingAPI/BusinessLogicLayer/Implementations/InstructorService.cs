@@ -25,7 +25,7 @@ namespace MilitaryDogsTrainingAPI.BusinessLogicLayer.Implementations
 
         public IQueryable<Instructor> GetAll(Expression<Func<Instructor, bool>> filter)
         {
-            throw new NotImplementedException();
+            return unitOfWork.InstructorRepository.GetAll(filter);
         }
 
         public IEnumerable<Instructor> GetAll()
@@ -35,7 +35,7 @@ namespace MilitaryDogsTrainingAPI.BusinessLogicLayer.Implementations
 
         public Instructor GetBy(Expression<Func<Instructor, bool>> filter)
         {
-            throw new NotImplementedException();
+            return unitOfWork.InstructorRepository.GetBy(filter);
         }
 
         public Instructor GetById(params int[] id)
