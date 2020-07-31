@@ -18,7 +18,8 @@ namespace MilitaryDogsTrainingAPI.BusinessLogicLayer.Implementations
         }
         public void Delete(Entities.Task entity)
         {
-            throw new NotImplementedException();
+            unitOfWork.TaskRepository.Delete(entity);
+            unitOfWork.Save();
         }
 
         public IQueryable<Entities.Task> GetAll(Expression<Func<Entities.Task, bool>> filter)
@@ -54,7 +55,8 @@ namespace MilitaryDogsTrainingAPI.BusinessLogicLayer.Implementations
 
         public void Update(Entities.Task entity)
         {
-            throw new NotImplementedException();
+            unitOfWork.TaskRepository.Update(entity);
+            unitOfWork.Save();
         }
     }
 }

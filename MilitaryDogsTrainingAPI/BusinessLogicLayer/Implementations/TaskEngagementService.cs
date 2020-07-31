@@ -20,32 +20,33 @@ namespace MilitaryDogsTrainingAPI.BusinessLogicLayer.Implementations
 
         public void Delete(TaskEngagement entity)
         {
-            throw new NotImplementedException();
+            unitOfWork.TaskEngagementRepository.Delete(entity);
+            unitOfWork.Save();
         }
 
         public IQueryable<TaskEngagement> GetAll(Expression<Func<TaskEngagement, bool>> filter)
         {
-            throw new NotImplementedException();
+            return unitOfWork.TaskEngagementRepository.GetAll(filter);
         }
 
         public IEnumerable<TaskEngagement> GetAll()
         {
-            throw new NotImplementedException();
+            return unitOfWork.TaskEngagementRepository.GetAll();
         }
 
         public TaskEngagement GetBy(Expression<Func<TaskEngagement, bool>> filter)
         {
-            throw new NotImplementedException();
+            return unitOfWork.TaskEngagementRepository.GetAll(filter).FirstOrDefault();
         }
 
         public TaskEngagement GetById(params int[] id)
         {
-            throw new NotImplementedException();
+            return unitOfWork.TaskEngagementRepository.GetById(id);
         }
 
         public void Insert(TaskEngagement entity)
         {
-            throw new NotImplementedException();
+            
         }
 
         public IQueryable<TaskEngagement> SearchFor(Expression<Func<TaskEngagement, bool>> predicate)
@@ -55,7 +56,8 @@ namespace MilitaryDogsTrainingAPI.BusinessLogicLayer.Implementations
 
         public void Update(TaskEngagement entity)
         {
-            throw new NotImplementedException();
+            unitOfWork.TaskEngagementRepository.Update(entity);
+            unitOfWork.Save();
         }
     }
 }

@@ -14,7 +14,13 @@ namespace MilitaryDogsTrainingAPI.Data.Profiles
         {
             CreateMap<TaskEngagement, TaskEngagementDTO>().ForMember(t=>t.Dog, map=>map.MapFrom(
                 t=>t.Dog.Name));
-            CreateMap<TaskEngagementDTO, TaskEngagement>();
+            CreateMap<TaskEngagementDTO, TaskEngagement>().ForPath(t=>t.Dog.Name, map=>map.MapFrom(
+                t=>t.Dog
+                ));
+            CreateMap<TaskEngagement, TaskEngagementDetailsDTO>().ForMember(t => t.TaskName, map => map.MapFrom(
+                   t => t.Task.Name)).ForMember(t=>t.Dog, map=>map.MapFrom(t=>t.Dog.Name));
+            CreateMap<TaskEngagementDetailsDTO, TaskEngagement>().ForPath(t => t.Task.Name, map => map.MapFrom(
+                  t => t.TaskName)).ForPath(t=>t.Dog.Name, map=>map.MapFrom(t=>t.Dog));
         }
     }
 }

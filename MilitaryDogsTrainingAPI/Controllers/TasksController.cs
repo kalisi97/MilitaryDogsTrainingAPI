@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -17,12 +18,14 @@ namespace MilitaryDogsTrainingAPI.Controllers
     {
         private readonly ITaskService taskService;
         private readonly IDogService dogService;
+        private readonly ITaskEngagementService taskEngagementService;
         private readonly IMapper mapper;
 
-        public TasksController(ITaskService taskService, IDogService dogService, IMapper mapper)
+        public TasksController(ITaskEngagementService taskEngagementService, ITaskService taskService, IDogService dogService, IMapper mapper)
         {
             this.taskService = taskService;
             this.dogService = dogService;
+            this.taskEngagementService = taskEngagementService;
             this.mapper = mapper;
         }
 
@@ -34,6 +37,19 @@ namespace MilitaryDogsTrainingAPI.Controllers
             return Ok(tasksDTO);
         }
 
+        [HttpPut("id")]
+
+        public ActionResult Put(int taskId,[FromBody] TaskForManipulationDTO taskDTO)
+        {
+            var entity = mapper.Map<Entities.Task>(taskDTO);
+            var taskFromDatabase = taskService.GetById(taskId);
+            if (taskFromDatabase == null) return NotFound();
+            taskFromDatabase.Location = entity.Location;
+            taskFromDatabase.Name = entity.Name;
+            taskService.Update(taskFromDatabase);
+            var taskUpdatedDTO = mapper.Map<TaskDTO>(taskFromDatabase);
+            return Ok(taskUpdatedDTO);
+        }
 
         [HttpGet("id")]
        
@@ -56,7 +72,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
 
                 Entities.Task taskToInsert = new Entities.Task()
                 {
-                    Date = task.Date,
+                    Date = DateTime.Now,
                     Location = task.Location,
                     Name = task.Name,
                     Status = "Created",
@@ -90,6 +106,28 @@ namespace MilitaryDogsTrainingAPI.Controllers
 
                 throw;
             }
+        }
+
+        [HttpDelete]
+        public ActionResult Delete(int id)
+        {
+            var task = taskService.GetById(id);
+            if (task == null)
+            {
+                Response.StatusCode = 404;
+                return NotFound();
+            }
+            taskService.Delete(task);
+            return NoContent();
+        }
+
+        [HttpGet]
+        [Route("[action]/{taskId}")]
+        public ActionResult<IEnumerable<TaskEngagementDTO>> GetTaskEngagementsForTask(int taskId)
+        {
+            var taskEngagements = taskEngagementService.GetAll(t => t.TaskId == taskId);
+            var taskEngagementsDTOs = mapper.Map<IEnumerable<TaskEngagementDTO>>(taskEngagements);
+            return Ok(taskEngagementsDTOs);
         }
     }
 }

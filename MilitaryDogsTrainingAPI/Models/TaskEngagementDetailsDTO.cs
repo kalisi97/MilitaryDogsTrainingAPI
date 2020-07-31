@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace MilitaryDogsTrainingAPI.Models
 {
-    public class TaskForCreationDTO:TaskForManipulationDTO
+    public class TaskEngagementDetailsDTO:TaskEngagementDTO
     {
-      
-        public ICollection<DogDTO> Dogs { get; set; }
+        public string TaskName { get; set; }
     }
 }

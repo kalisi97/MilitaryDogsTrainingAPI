@@ -21,7 +21,7 @@ namespace MilitaryDogsTrainingAPI.DataAccessLayer.Repositories.Implementations
 
         public override void Insert(Entities.Task entity)
         {
-                context.Add(entity);
+                context.Tasks.Add(entity);
                 foreach(TaskEngagement taskEngagement in entity.TaskEngagements)
                 {
                     context.TaskEngagements.Add(taskEngagement);
@@ -43,6 +43,15 @@ namespace MilitaryDogsTrainingAPI.DataAccessLayer.Repositories.Implementations
         {
             return context.Tasks.AsNoTracking().Include(t => t.TaskEngagements).ThenInclude(t => t.Dog);
 
+        }
+
+        public override void Update(Entities.Task entity)
+        {
+            foreach(TaskEngagement taskEngagement in entity.TaskEngagements)
+            {
+                context.Entry(taskEngagement).State = EntityState.Unchanged;
+            }
+            context.Entry(entity).State = EntityState.Modified;
         }
     }
 }
