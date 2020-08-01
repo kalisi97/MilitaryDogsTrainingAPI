@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MilitaryDogsTrainingAPI.BusinessLogicLayer.Interfaces;
@@ -30,6 +31,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin,instructor")]
         public ActionResult<IEnumerable<TaskDTO>> Get()
         {
             var tasks = taskService.GetAll();
@@ -62,6 +64,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public ActionResult<TaskDTO> Post([FromBody] TaskForCreationDTO model)
         {
             try
@@ -72,7 +75,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
 
                 Entities.Task taskToInsert = new Entities.Task()
                 {
-                    Date = DateTime.Now,
+                    Date = model.Date,
                     Location = task.Location,
                     Name = task.Name,
                     Status = "Created",
@@ -109,6 +112,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(int id)
         {
             var task = taskService.GetById(id);
@@ -123,6 +127,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
 
         [HttpGet]
         [Route("[action]/{taskId}")]
+        [Authorize(Roles = "admin,instructor")]
         public ActionResult<IEnumerable<TaskEngagementDTO>> GetTaskEngagementsForTask(int taskId)
         {
             var taskEngagements = taskEngagementService.GetAll(t => t.TaskId == taskId);

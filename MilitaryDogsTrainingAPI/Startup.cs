@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -12,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MilitaryDogsTrainingAPI.BusinessLogicLayer.Implementations;
 using MilitaryDogsTrainingAPI.BusinessLogicLayer.Interfaces;
@@ -52,12 +55,40 @@ namespace MilitaryDogsTrainingAPI
                   .AddRoles<IdentityRole>()
                  .AddDefaultTokenProviders()
                  .AddEntityFrameworkStores<ApplicationDbContext>();
+
+           
+
+
+            // Adding Authentication  
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+
+            // Adding Jwt Bearer  
+            .AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["JWT:ValidAudience"],
+                    ValidIssuer = Configuration["JWT:ValidIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                };
+            });
+
+
             services.AddScoped<Seeder>();
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo() { Title = "MilitaryDogs API", Version = "v1" });
-                /*
+                
                 c.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.Http,
@@ -66,7 +97,7 @@ namespace MilitaryDogsTrainingAPI
                     Scheme = "bearer"
                 });
                 c.OperationFilter<AuthenticationRequirementsOperationFilter>();
-                */
+                
             });
         }
 
@@ -79,7 +110,7 @@ namespace MilitaryDogsTrainingAPI
             }
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(c =>

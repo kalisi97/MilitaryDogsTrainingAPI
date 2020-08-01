@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MilitaryDogsTrainingAPI.BusinessLogicLayer.Interfaces;
@@ -28,7 +29,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
         }
 
         [HttpGet]
-
+        [AllowAnonymous]
         public ActionResult<IEnumerable<TrainingCourseDTO>> GetAll()
         {
             var entites = courseService.GetAll();
@@ -38,6 +39,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
 
         [HttpGet]
         [Route("[action]/{id}")]
+        [AllowAnonymous]
         public ActionResult<TrainingCourseDTO> GetById(int id)
         {
             var entity = courseService.GetById(id);
@@ -48,6 +50,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
 
         [HttpGet]
         [Route("[action]/{name}")]
+        [AllowAnonymous]
         public ActionResult<TrainingCourseDTO> GetByName(string name)
         {
             var entity = courseService.GetBy(t=>t.Name == name);
@@ -57,21 +60,28 @@ namespace MilitaryDogsTrainingAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "admin")]
         public ActionResult Put([FromBody] TrainingCourseToUpdateDTO model) 
-        { 
-            var trainingCourseFromDataBase = courseService.GetBy(t => t.Name == model.Name);
-            if (trainingCourseFromDataBase == null) return NotFound();
-            trainingCourseFromDataBase.Name = model.Name;
-            trainingCourseFromDataBase.Description = model.Description;
-            trainingCourseFromDataBase.Duration = model.Duration;
-          
-            courseService.Update(trainingCourseFromDataBase);
-            var trainingCourseDTO = mapper.Map<TrainingCourseDTO>(trainingCourseFromDataBase);
-            return Ok(trainingCourseDTO);    
+        {
+            if (ModelState.IsValid)
+            {
+                var trainingCourseFromDataBase = courseService.GetBy(t => t.Name == model.Name);
+                if (trainingCourseFromDataBase == null) return NotFound();
+                trainingCourseFromDataBase.Name = model.Name;
+                trainingCourseFromDataBase.Description = model.Description;
+                trainingCourseFromDataBase.Duration = model.Duration;
+                courseService.Update(trainingCourseFromDataBase);
+                var trainingCourseDTO = mapper.Map<TrainingCourseDTO>(trainingCourseFromDataBase);
+                return Ok(trainingCourseDTO);
+            }
+            return StatusCode(StatusCodes.Status400BadRequest, new ResponseModel {
+            Status = "Validation error!", Message = "You should check your input parameters!"
+            });
         }
         
         [HttpGet]
         [Route("[action]/{trainingCourseId}")]
+        [Authorize(Roles = "admin")]
         public ActionResult<IEnumerable<Instructor>> GetInstructorsForTrainingCourse(int trainingCourseId)
         {
             var entites = instructorService.GetAll(i => i.TrainingCourseId == trainingCourseId);
@@ -80,7 +90,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
         }
     
         [HttpDelete("id")]
-
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(int id)
         {
             var entity = courseService.GetById(id);
@@ -90,18 +100,26 @@ namespace MilitaryDogsTrainingAPI.Controllers
         }
 
         [HttpPost]
-
-        public IActionResult Post([FromBody] TrainingCourseForCreationDTO model)
+        [Authorize(Roles = "admin")]
+        public ActionResult Post([FromBody] TrainingCourseForCreationDTO model)
         {
-            var entity = mapper.Map<TrainingCourse>(model);
-            TrainingCourse trainingCourse = new TrainingCourse()
+            if (ModelState.IsValid)
             {
-                Description = entity.Description,
-                Duration = entity.Duration,
-                Name = entity.Name
-            };
-            courseService.Insert(trainingCourse);
-            return Ok();
+                var entity = mapper.Map<TrainingCourse>(model);
+                TrainingCourse trainingCourse = new TrainingCourse()
+                {
+                    Description = entity.Description,
+                    Duration = entity.Duration,
+                    Name = entity.Name
+                };
+                courseService.Insert(trainingCourse);
+                return Ok(); 
+            }
+            return StatusCode(StatusCodes.Status400BadRequest, new ResponseModel
+            {
+                Status = "Validation error!",
+                Message = "You should check your input parameters!"
+            });
         }
     }
 }

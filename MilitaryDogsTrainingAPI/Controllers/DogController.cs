@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MilitaryDogsTrainingAPI.BusinessLogicLayer.Interfaces;
@@ -13,12 +14,14 @@ namespace MilitaryDogsTrainingAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles ="admin,instructor")]
     public class DogController : ControllerBase
     {
         private readonly IMapper mapper;
         private readonly IDogService dogService;
         private readonly ITrainingCourseService trainingCourseService;
 
+       
         public DogController(IMapper mapper, IDogService dogService, ITrainingCourseService trainingCourseService)
         {
             this.mapper = mapper;
@@ -27,6 +30,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
         }
 
         [HttpGet]
+        
         public ActionResult<IEnumerable<DogDTO>> GetAll()
         {
             var dogs = dogService.GetAll();

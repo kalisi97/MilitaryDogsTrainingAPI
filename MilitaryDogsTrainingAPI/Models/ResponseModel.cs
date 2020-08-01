@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace MilitaryDogsTrainingAPI.Models
 {
-    public class TaskForManipulationDTO
+    public class ResponseModel
     {
-        public string Name { get; set; }
-        public string Location { get; set; }
+        public string Status { get; set; }
+        public string Message { get; set; }
     }
 }
