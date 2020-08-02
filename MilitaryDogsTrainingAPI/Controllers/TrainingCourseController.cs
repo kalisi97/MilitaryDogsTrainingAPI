@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using MilitaryDogsTrainingAPI.BusinessLogicLayer.Interfaces;
 using MilitaryDogsTrainingAPI.Entities;
@@ -121,5 +122,22 @@ namespace MilitaryDogsTrainingAPI.Controllers
                 Message = "You should check your input parameters!"
             });
         }
+
+
+        [HttpPatch("courseId")]
+        public ActionResult PartiallyUpdateTrainingCourse(int courseId, 
+           [FromBody] JsonPatchDocument<TrainingCourseToUpdateDTO> document)
+        {
+            var trainingCourse = courseService.GetById(courseId);
+            if (trainingCourse == null) return NotFound();
+            var trainingCourseToPatch = mapper.Map<TrainingCourseToUpdateDTO>(trainingCourse);
+            //add validation
+            document.ApplyTo(trainingCourseToPatch);
+            mapper.Map(trainingCourseToPatch, trainingCourse);
+            courseService.Update(trainingCourse);
+            return NoContent();
+
+        }
+
     }
 }

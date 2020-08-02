@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -8,20 +9,22 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MilitaryDogsTrainingAPI.BusinessLogicLayer.Interfaces;
 using MilitaryDogsTrainingAPI.Entities;
+using MilitaryDogsTrainingAPI.Helpers;
 using MilitaryDogsTrainingAPI.Models;
+using MilitaryDogsTrainingAPI.ResourceParameters;
 
 namespace MilitaryDogsTrainingAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles ="admin,instructor")]
+    [Authorize(Roles = "admin,instructor")]
     public class DogController : ControllerBase
     {
         private readonly IMapper mapper;
         private readonly IDogService dogService;
         private readonly ITrainingCourseService trainingCourseService;
 
-       
+
         public DogController(IMapper mapper, IDogService dogService, ITrainingCourseService trainingCourseService)
         {
             this.mapper = mapper;
@@ -29,11 +32,32 @@ namespace MilitaryDogsTrainingAPI.Controllers
             this.trainingCourseService = trainingCourseService;
         }
 
-        [HttpGet]
-        
-        public ActionResult<IEnumerable<DogDTO>> GetAll()
+        [HttpGet(Name = "GetDogs")]
+        [AllowAnonymous]
+        public ActionResult<IEnumerable<DogDTO>> GetDogs([FromQuery] EntityResourceParameters parameters)
         {
-            var dogs = dogService.GetAll();
+
+            var dogs = dogService.GetAll(parameters);
+            var previousPageLink = dogs.HasPrevious ?
+             CreateDogsResourceUri(parameters,
+             ResourceUriType.PreviousPage) : null;
+
+            var nextPageLink = dogs.HasNext ?
+                CreateDogsResourceUri(parameters,
+                ResourceUriType.NextPage) : null;
+
+            var paginationMetadata = new
+            {
+                totalCount = dogs.TotalCount,
+                pageSize = dogs.PageSize,
+                currentPage = dogs.CurrentPage,
+                totalPages = dogs.TotalPages,
+                previousPageLink,
+                nextPageLink
+            };
+
+            Response.Headers.Add("X-Pagination",
+                JsonSerializer.Serialize(paginationMetadata));
             var dogsDTO = mapper.Map<IEnumerable<DogDTO>>(dogs);
             return Ok(dogsDTO);
         }
@@ -93,6 +117,43 @@ namespace MilitaryDogsTrainingAPI.Controllers
             if (dogFromDatabase == null) return NotFound();
             dogService.Delete(dogFromDatabase);
             return NoContent();
+        }
+
+        private string CreateDogsResourceUri(
+         EntityResourceParameters authorsResourceParameters,
+         ResourceUriType type)
+        {
+            switch (type)
+            {
+                case ResourceUriType.PreviousPage:
+                    return Url.Link("GetDogs",
+                      new
+                      {
+                          pageNumber = authorsResourceParameters.PageNumber - 1,
+                          pageSize = authorsResourceParameters.PageSize,
+                          mainCategory = authorsResourceParameters.Category,
+                          searchQuery = authorsResourceParameters.SearchQuery
+                      });
+                case ResourceUriType.NextPage:
+                    return Url.Link("GetDogs",
+                      new
+                      {
+                          pageNumber = authorsResourceParameters.PageNumber + 1,
+                          pageSize = authorsResourceParameters.PageSize,
+                          mainCategory = authorsResourceParameters.Category,
+                          searchQuery = authorsResourceParameters.SearchQuery
+                      });
+
+                default:
+                    return Url.Link("GetDogs",
+                    new
+                    {
+                        pageNumber = authorsResourceParameters.PageNumber,
+                        pageSize = authorsResourceParameters.PageSize,
+                        mainCategory = authorsResourceParameters.Category,
+                        searchQuery = authorsResourceParameters.SearchQuery
+                    });
+            }
         }
     }
 }

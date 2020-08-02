@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MilitaryDogsTrainingAPI.Data;
 using MilitaryDogsTrainingAPI.DataAccessLayer.Repositories.Interfaces;
+using MilitaryDogsTrainingAPI.ResourceParameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +56,11 @@ namespace MilitaryDogsTrainingAPI.DataAccessLayer.Repositories.Implementations
         }
 
         public virtual IEnumerable<T> GetAll()
+        {
+            return context.Set<T>();
+        }
+
+        public virtual IEnumerable<T> GetAll(EntityResourceParameters parameters)
         {
             return context.Set<T>();
         }

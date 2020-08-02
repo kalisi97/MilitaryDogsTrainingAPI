@@ -1,6 +1,8 @@
 ﻿using MilitaryDogsTrainingAPI.BusinessLogicLayer.Interfaces;
 using MilitaryDogsTrainingAPI.DataAccessLayer.UnitOfWork;
 using MilitaryDogsTrainingAPI.Entities;
+using MilitaryDogsTrainingAPI.Helpers;
+using MilitaryDogsTrainingAPI.ResourceParameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,11 @@ namespace MilitaryDogsTrainingAPI.BusinessLogicLayer.Implementations
         public IEnumerable<Dog> GetAll()
         {
             return unitOfWork.DogRepository.GetAll();
+        }
+
+        public PagedList<Dog> GetAll(EntityResourceParameters parameters)
+        {
+            return unitOfWork.DogRepository.GetAll(parameters);
         }
 
         public Dog GetBy(Expression<Func<Dog, bool>> filter)
