@@ -95,6 +95,7 @@ namespace MilitaryDogsTrainingAPI
             services.AddScoped<ITaskEngagementService, TaskEngagementService>();
             services.AddScoped<ITrainingCourseService, TrainingCourseService>();
             services.AddScoped<IDogService, DogService>();
+            services.AddTransient<IPropertyMappingService, PropertyMappingService>();
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ApplicationUser, IdentityRole>()

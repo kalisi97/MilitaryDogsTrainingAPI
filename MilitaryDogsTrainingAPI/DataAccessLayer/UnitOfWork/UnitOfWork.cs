@@ -1,4 +1,5 @@
-﻿using MilitaryDogsTrainingAPI.Data;
+﻿using MilitaryDogsTrainingAPI.BusinessLogicLayer.Interfaces;
+using MilitaryDogsTrainingAPI.Data;
 using MilitaryDogsTrainingAPI.DataAccessLayer.Repositories.Implementations;
 using MilitaryDogsTrainingAPI.DataAccessLayer.Repositories.Interfaces;
 using System;
@@ -15,13 +16,15 @@ namespace MilitaryDogsTrainingAPI.DataAccessLayer.UnitOfWork
         public ITaskRepository TaskRepository  {get; set;} 
         public ITaskEngagementRepository TaskEngagementRepository {get; set;} 
         public ITrainingCourseRepository TrainingCourseRepository  {get; set;} 
+        public IPropertyMappingService propertyMappingService { get; set; }
 
         private readonly ApplicationDbContext context;
 
-        public UnitOfWork(ApplicationDbContext context)
+        public UnitOfWork(ApplicationDbContext context, IPropertyMappingService propertyMappingService)
         {
             this.context = context;
-            DogRepository = new DogRepository(context);
+            this.propertyMappingService = propertyMappingService;
+            DogRepository = new DogRepository(context,propertyMappingService);
             InstructorRepository = new InstructorRepository(context);
             TaskRepository = new  TaskRepository(context);
             TaskEngagementRepository =  new TaskEngagementRepository(context);

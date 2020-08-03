@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MilitaryDogsTrainingAPI.BusinessLogicLayer.Interfaces;
 using MilitaryDogsTrainingAPI.Data;
 using MilitaryDogsTrainingAPI.DataAccessLayer.Repositories.Interfaces;
 using MilitaryDogsTrainingAPI.Entities;
@@ -15,10 +16,11 @@ namespace MilitaryDogsTrainingAPI.DataAccessLayer.Repositories.Implementations
     public class DogRepository : GenericRepository<Dog>, IDogRepository
     {
         private readonly ApplicationDbContext context;
-
-        public DogRepository(ApplicationDbContext context) : base(context)
+        private readonly IPropertyMappingService propertyMappingService;
+        public DogRepository(ApplicationDbContext context, IPropertyMappingService propertyMappingService) : base(context)
         {
             this.context = context;
+            this.propertyMappingService = propertyMappingService;
         }
 
         public override IEnumerable<Dog> GetAll()
@@ -58,6 +60,26 @@ namespace MilitaryDogsTrainingAPI.DataAccessLayer.Repositories.Implementations
             {
                 collection = collection.Where(d => d.TrainingCourse.Name.ToLower()
                 .Contains(parameters.Category));
+            }
+            if (!string.IsNullOrEmpty(parameters.OrderBy))
+            {
+                /*
+                if(parameters.OrderBy.ToLower()=="name")
+                collection = collection.OrderBy(d => d.Name);
+                if (parameters.OrderBy.ToLower() == "age")
+                    collection = collection.OrderBy(d => d.DateOfBirth);
+                if (parameters.OrderBy.ToLower() == "gender")
+                    collection = collection.OrderBy(d => d.Gender);
+                if (parameters.OrderBy.ToLower() == "breed")
+                    collection = collection.OrderBy(d => d.Breed);
+                    */
+
+
+                var propertyMappingDictionary =
+                       propertyMappingService.GetPropertyMapping<Models.DogDTO, Dog>();
+
+                collection = collection.ApplySort(parameters.OrderBy,
+                    propertyMappingDictionary);
             }
 
             return PagedList<Dog>.Create(collection,

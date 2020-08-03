@@ -21,13 +21,15 @@ namespace MilitaryDogsTrainingAPI.Controllers
     public class DogController : ControllerBase
     {
         private readonly IMapper mapper;
+        private readonly IPropertyMappingService propertyMappingService;
         private readonly IDogService dogService;
         private readonly ITrainingCourseService trainingCourseService;
 
 
-        public DogController(IMapper mapper, IDogService dogService, ITrainingCourseService trainingCourseService)
+        public DogController(IPropertyMappingService propertyMappingService, IMapper mapper, IDogService dogService, ITrainingCourseService trainingCourseService)
         {
             this.mapper = mapper;
+            this.propertyMappingService = propertyMappingService;
             this.dogService = dogService;
             this.trainingCourseService = trainingCourseService;
         }
@@ -36,6 +38,11 @@ namespace MilitaryDogsTrainingAPI.Controllers
         [AllowAnonymous]
         public ActionResult<IEnumerable<DogDTO>> GetDogs([FromQuery] EntityResourceParameters parameters)
         {
+            //ako ne postoji mapa za unet properti za odgovarajuce klase, vracamo gresku sa 
+            // statusnim kodom 400
+
+            if (!propertyMappingService.ValidMappingExistsFor<DogDTO, Dog>(parameters.OrderBy))
+                return BadRequest();
 
             var dogs = dogService.GetAll(parameters);
             var previousPageLink = dogs.HasPrevious ?
@@ -71,6 +78,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
             var dogDTO = mapper.Map<IEnumerable<DogDTO>>(dogs);
             return Ok(dogDTO);
         }
+
         [HttpPost]
         public ActionResult<DogDTO> Post([FromBody] DogForCreationDTO model)
         {
@@ -106,7 +114,6 @@ namespace MilitaryDogsTrainingAPI.Controllers
             dogService.Update(dogFromDatabase);
             DogDTO dogDTO = mapper.Map<DogDTO>(dogFromDatabase);
             return Created($"api/dogs/get/{dogDTO.Name}", dogDTO);
-
         }
 
         [HttpDelete("dogId")]
@@ -119,9 +126,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
             return NoContent();
         }
 
-        private string CreateDogsResourceUri(
-         EntityResourceParameters authorsResourceParameters,
-         ResourceUriType type)
+        private string CreateDogsResourceUri(EntityResourceParameters parameters, ResourceUriType type)
         {
             switch (type)
             {
@@ -129,29 +134,32 @@ namespace MilitaryDogsTrainingAPI.Controllers
                     return Url.Link("GetDogs",
                       new
                       {
-                          pageNumber = authorsResourceParameters.PageNumber - 1,
-                          pageSize = authorsResourceParameters.PageSize,
-                          mainCategory = authorsResourceParameters.Category,
-                          searchQuery = authorsResourceParameters.SearchQuery
+                          orderBy = parameters.OrderBy,
+                          pageNumber = parameters.PageNumber - 1,
+                          pageSize = parameters.PageSize,
+                          mainCategory = parameters.Category,
+                          searchQuery = parameters.SearchQuery
                       });
                 case ResourceUriType.NextPage:
                     return Url.Link("GetDogs",
                       new
                       {
-                          pageNumber = authorsResourceParameters.PageNumber + 1,
-                          pageSize = authorsResourceParameters.PageSize,
-                          mainCategory = authorsResourceParameters.Category,
-                          searchQuery = authorsResourceParameters.SearchQuery
+                          orderBy = parameters.OrderBy,
+                          pageNumber = parameters.PageNumber + 1,
+                          pageSize = parameters.PageSize,
+                          mainCategory = parameters.Category,
+                          searchQuery = parameters.SearchQuery
                       });
 
                 default:
                     return Url.Link("GetDogs",
                     new
                     {
-                        pageNumber = authorsResourceParameters.PageNumber,
-                        pageSize = authorsResourceParameters.PageSize,
-                        mainCategory = authorsResourceParameters.Category,
-                        searchQuery = authorsResourceParameters.SearchQuery
+                        orderBy = parameters.OrderBy,
+                        pageNumber = parameters.PageNumber,
+                        pageSize = parameters.PageSize,
+                        mainCategory = parameters.Category,
+                        searchQuery = parameters.SearchQuery
                     });
             }
         }

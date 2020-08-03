@@ -16,7 +16,7 @@ namespace MilitaryDogsTrainingAPI.ResourceParameters
         public int PageSize { get => pageSize; set =>
                 pageSize = (value > maxPageSize) ? maxPageSize : value;}
 
-        
+        public string OrderBy { get; set; } = "Name";
 
     }
 }
