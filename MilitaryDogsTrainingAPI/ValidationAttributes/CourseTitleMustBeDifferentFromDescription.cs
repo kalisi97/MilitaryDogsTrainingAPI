@@ -13,12 +13,12 @@ namespace MilitaryDogsTrainingAPI.ValidationAttributes
         protected override ValidationResult IsValid(object value,
             ValidationContext validationContext)
         {
-            var course = (TrainingCourseForCreationDTO)validationContext.ObjectInstance;
+            var course = (TrainingCourseDTO)validationContext.ObjectInstance;
 
             if (course.Name == course.Description)
             {
                 return new ValidationResult(ErrorMessage,
-                    new[] { nameof(TrainingCourseForCreationDTO) });
+                    new[] { nameof(TrainingCourseDTO) });
             }
 
             return ValidationResult.Success;

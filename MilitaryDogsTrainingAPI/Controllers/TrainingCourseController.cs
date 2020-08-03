@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -60,13 +61,14 @@ namespace MilitaryDogsTrainingAPI.Controllers
             return Ok(entityDTO);
         }
 
-        [HttpPut]
-        [Authorize(Roles = "admin")]
-        public ActionResult Put([FromBody] TrainingCourseToUpdateDTO model) 
+        [HttpPut("id")]
+      //  [Authorize(Roles = "admin")]
+      [AllowAnonymous]
+        public ActionResult Put(int id, [FromBody] TrainingCourseToUpdateDTO model) 
         {
             if (ModelState.IsValid)
             {
-                var trainingCourseFromDataBase = courseService.GetBy(t => t.Name == model.Name);
+                var trainingCourseFromDataBase = courseService.GetById(id);
                 if (trainingCourseFromDataBase == null) return NotFound();
                 trainingCourseFromDataBase.Name = model.Name;
                 trainingCourseFromDataBase.Description = model.Description;
@@ -83,6 +85,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
         [HttpGet]
         [Route("[action]/{trainingCourseId}")]
         [Authorize(Roles = "admin")]
+   
         public ActionResult<IEnumerable<Instructor>> GetInstructorsForTrainingCourse(int trainingCourseId)
         {
             var entites = instructorService.GetAll(i => i.TrainingCourseId == trainingCourseId);
@@ -91,17 +94,20 @@ namespace MilitaryDogsTrainingAPI.Controllers
         }
     
         [HttpDelete("id")]
-        [Authorize(Roles = "admin")]
+       // [Authorize(Roles = "admin")]
+        [AllowAnonymous]
         public IActionResult Delete(int id)
         {
             var entity = courseService.GetById(id);
             if (entity == null) return NotFound();
             courseService.Delete(entity);
-            return NoContent();
+            //  return NoContent();
+            return StatusCode(StatusCodes.Status204NoContent);
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [AllowAnonymous]
+        //[Authorize(Roles = "admin")]
         public ActionResult Post([FromBody] TrainingCourseForCreationDTO model)
         {
             if (ModelState.IsValid)
@@ -114,7 +120,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
                     Name = entity.Name
                 };
                 courseService.Insert(trainingCourse);
-                return Ok(); 
+                return Ok(trainingCourse); 
             }
             return StatusCode(StatusCodes.Status400BadRequest, new ResponseModel
             {

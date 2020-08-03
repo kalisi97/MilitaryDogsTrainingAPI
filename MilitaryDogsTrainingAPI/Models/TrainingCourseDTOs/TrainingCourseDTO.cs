@@ -11,10 +11,10 @@ namespace MilitaryDogsTrainingAPI.Models
     public class TrainingCourseDTO
     {
         [Required(ErrorMessage = "You should fill out a name.")]
-        [MaxLength(20, ErrorMessage = "The name shouldn't have more than 30 characters.")]
+        [MaxLength(100, ErrorMessage = "The name shouldn't have more than 100 characters.")]
         public string Name { get; set; }
         [Required(ErrorMessage = "You should fill out a description.")]
-        [MaxLength(20, ErrorMessage = "The description shouldn't have more than 100 characters.")]
+        [MaxLength(100, ErrorMessage = "The description shouldn't have more than 100 characters.")]
         public string Description { get; set; }
         [Required(ErrorMessage = "You should fill out a duration.")]
         [Range(1, 10)]

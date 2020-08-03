@@ -2,7 +2,6 @@ C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\bin\D
 C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\bin\Debug\netcoreapp3.0\appsettings.json
 C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\bin\Debug\netcoreapp3.0\Properties\launchSettings.json
 C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\bin\Debug\netcoreapp3.0\MilitaryDogsTrainingAPI.exe
-C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\obj\Debug\netcoreapp3.0\MilitaryDogsTrainingAPI.csprojAssemblyReference.cache
 C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\obj\Debug\netcoreapp3.0\MilitaryDogsTrainingAPI.AssemblyInfoInputs.cache
 C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\obj\Debug\netcoreapp3.0\MilitaryDogsTrainingAPI.AssemblyInfo.cs
 C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\obj\Debug\netcoreapp3.0\MilitaryDogsTrainingAPI.RazorTargetAssemblyInfo.cache
@@ -150,3 +149,4 @@ C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\obj\D
 C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\obj\Debug\netcoreapp3.0\MilitaryDogsTrainingAPI.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\obj\Debug\netcoreapp3.0\MilitaryDogsTrainingAPI.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\bin\Debug\netcoreapp3.0\System.Linq.Dynamic.Core.dll
+C:\Users\Kaca\source\repos\MilitaryDogsTrainingAPI\MilitaryDogsTrainingAPI\obj\Debug\netcoreapp3.0\MilitaryDogsTrainingAPI.csprojAssemblyReference.cache

@@ -1,4 +1,5 @@
-﻿using MilitaryDogsTrainingAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MilitaryDogsTrainingAPI.Data;
 using MilitaryDogsTrainingAPI.DataAccessLayer.Repositories.Interfaces;
 using MilitaryDogsTrainingAPI.Entities;
 using System;
@@ -15,6 +16,10 @@ namespace MilitaryDogsTrainingAPI.DataAccessLayer.Repositories.Implementations
         public TrainingCourseRepository(ApplicationDbContext context):base(context)
         {
             this.context = context;
+        }
+        public override IEnumerable<TrainingCourse> GetAll()
+        {
+            return context.TrainingCourses.AsNoTracking().Include(t => t.Dogs).Include(t => t.Instructors);
         }
     }
 }
