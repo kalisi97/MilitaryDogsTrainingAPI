@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTrainingAPI\\Client\\MilitaryDogsTrainingClient.csproj": {}
+    "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTraining\\Client\\MilitaryDogsTrainingClient.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTrainingAPI\\Client\\MilitaryDogsTrainingClient.csproj": {
+    "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTraining\\Client\\MilitaryDogsTrainingClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTrainingAPI\\Client\\MilitaryDogsTrainingClient.csproj",
+        "projectUniqueName": "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTraining\\Client\\MilitaryDogsTrainingClient.csproj",
         "projectName": "MilitaryDogsTrainingClient",
-        "projectPath": "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTrainingAPI\\Client\\MilitaryDogsTrainingClient.csproj",
+        "projectPath": "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTraining\\Client\\MilitaryDogsTrainingClient.csproj",
         "packagesPath": "C:\\Users\\Kaca\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTrainingAPI\\Client\\obj\\",
+        "outputPath": "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTraining\\Client\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -41,6 +41,14 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Marvin.StreamExtensions": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "Microsoft.AspNetCore.JsonPatch": {
+              "target": "Package",
+              "version": "[3.1.6, )"
+            },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
               "version": "[3.1.6, )"

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTrainingAPI\\MilitaryDogsTrainingAPI\\MilitaryDogsTrainingAPI.csproj": {}
+    "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTraining\\MilitaryDogsTrainingAPI\\MilitaryDogsTrainingAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTrainingAPI\\MilitaryDogsTrainingAPI\\MilitaryDogsTrainingAPI.csproj": {
+    "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTraining\\MilitaryDogsTrainingAPI\\MilitaryDogsTrainingAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTrainingAPI\\MilitaryDogsTrainingAPI\\MilitaryDogsTrainingAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTraining\\MilitaryDogsTrainingAPI\\MilitaryDogsTrainingAPI.csproj",
         "projectName": "MilitaryDogsTrainingAPI",
-        "projectPath": "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTrainingAPI\\MilitaryDogsTrainingAPI\\MilitaryDogsTrainingAPI.csproj",
+        "projectPath": "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTraining\\MilitaryDogsTrainingAPI\\MilitaryDogsTrainingAPI.csproj",
         "packagesPath": "C:\\Users\\Kaca\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTrainingAPI\\MilitaryDogsTrainingAPI\\obj\\",
+        "outputPath": "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTraining\\MilitaryDogsTrainingAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "C+OrOAJ6jP/TG2gvzSVY1pgvMLDv4f++MwoB50fGURwoi19mHddsUf3k0EVryQSDnG+VfnW/9iUNd8oZNCBT4A==",
+  "dgSpecHash": "Ca+jU0AqbBp6Pz2a4EGyI+XhBMy9knUvkom1lw8v/DcIa+YDI0au7JlPutoevvTXSISdcKHhXsQG9HL99NaS+Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTrainingAPI\\MilitaryDogsTrainingAPI\\MilitaryDogsTrainingAPI.csproj",
+  "projectFilePath": "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTraining\\MilitaryDogsTrainingAPI\\MilitaryDogsTrainingAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kaca\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
     "C:\\Users\\Kaca\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.0.1\\automapper.extensions.microsoft.dependencyinjection.8.0.1.nupkg.sha512",

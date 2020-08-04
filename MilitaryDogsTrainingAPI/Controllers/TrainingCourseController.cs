@@ -131,6 +131,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
 
 
         [HttpPatch("courseId")]
+        [AllowAnonymous]
         public ActionResult PartiallyUpdateTrainingCourse(int courseId, 
            [FromBody] JsonPatchDocument<TrainingCourseToUpdateDTO> document)
         {

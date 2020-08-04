@@ -27,7 +27,7 @@ namespace Client.Services
             // await GetResourceThroughHttpRequestMessage();
            // await CreateResource();
           //  await UpdateResource();
-         await DeleteResource();
+        // await DeleteResource();
         }
 
         public async System.Threading.Tasks.Task GetResource()
