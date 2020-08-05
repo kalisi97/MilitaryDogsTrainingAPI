@@ -84,8 +84,7 @@ namespace Client
             //  dealing with errors and faults demos
              serviceCollection.AddScoped<IIntegrationService, DealingWithErrorsAndFaultsService>();
 
-            // For the custom http handlers demos
-           //  serviceCollection.AddScoped<IIntegrationService, HttpHandlersService>();     
+            
         }
     }
 }
