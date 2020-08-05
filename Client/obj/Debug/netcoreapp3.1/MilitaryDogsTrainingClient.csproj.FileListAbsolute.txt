@@ -49,4 +49,5 @@ C:\Users\Kaca\source\repos\MilitaryDogsTraining\Client\obj\Debug\netcoreapp3.1\M
 C:\Users\Kaca\source\repos\MilitaryDogsTraining\Client\obj\Debug\netcoreapp3.1\MilitaryDogsTrainingClient.genruntimeconfig.cache
 C:\Users\Kaca\source\repos\MilitaryDogsTraining\Client\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\Kaca\source\repos\MilitaryDogsTraining\Client\bin\Debug\netcoreapp3.1\Marvin.StreamExtensions.dll
+C:\Users\Kaca\source\repos\MilitaryDogsTraining\Client\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Http.dll
 C:\Users\Kaca\source\repos\MilitaryDogsTraining\Client\obj\Debug\netcoreapp3.1\MilitaryDogsTrainingClient.csproj.CoreCompileInputs.cache

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "nU2/Jwke71nbaFyAsRuyFfMyEUJLvNnzBQ19+yfwRkVYj8yOQIfgAQjvoinEfXOpkdPxBLKXcmzwL2iRwgsw+g==",
+  "dgSpecHash": "pY6XnMZMAOQGiW1Ci/uVeCZ4Y6tzqpsN5bIZHtLDq1uLPmCwO9FC+Nox6tlZXJ5eOKUjFxz3TtFCzisYT7Q6bQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Kaca\\source\\repos\\MilitaryDogsTraining\\Client\\MilitaryDogsTrainingClient.csproj",
   "expectedPackageFiles": [
@@ -12,6 +12,7 @@
     "C:\\Users\\Kaca\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.6\\microsoft.extensions.configuration.binder.3.1.6.nupkg.sha512",
     "C:\\Users\\Kaca\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.6\\microsoft.extensions.dependencyinjection.3.1.6.nupkg.sha512",
     "C:\\Users\\Kaca\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.6\\microsoft.extensions.dependencyinjection.abstractions.3.1.6.nupkg.sha512",
+    "C:\\Users\\Kaca\\.nuget\\packages\\microsoft.extensions.http\\3.1.6\\microsoft.extensions.http.3.1.6.nupkg.sha512",
     "C:\\Users\\Kaca\\.nuget\\packages\\microsoft.extensions.logging\\3.1.6\\microsoft.extensions.logging.3.1.6.nupkg.sha512",
     "C:\\Users\\Kaca\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.6\\microsoft.extensions.logging.abstractions.3.1.6.nupkg.sha512",
     "C:\\Users\\Kaca\\.nuget\\packages\\microsoft.extensions.logging.debug\\3.1.6\\microsoft.extensions.logging.debug.3.1.6.nupkg.sha512",

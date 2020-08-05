@@ -93,6 +93,20 @@
           "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
         }
       },
+      "Microsoft.Extensions.Http/3.1.6": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.6",
+          "Microsoft.Extensions.Logging": "3.1.6",
+          "Microsoft.Extensions.Options": "3.1.6"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Http.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Http.dll": {}
+        }
+      },
       "Microsoft.Extensions.Logging/3.1.6": {
         "type": "package",
         "dependencies": {
@@ -733,6 +747,22 @@
         "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
         "microsoft.extensions.dependencyinjection.abstractions.3.1.6.nupkg.sha512",
         "microsoft.extensions.dependencyinjection.abstractions.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.Http/3.1.6": {
+      "sha512": "Zt1+jLObgiPcB/mzb52fMABdMBZ2BmI8LFsxHIG660qiwroaF7Gn9z0aOIAtdPq1ZtEZksSXXg3SXaPka1xzHA==",
+      "type": "package",
+      "path": "microsoft.extensions.http/3.1.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/netcoreapp3.1/Microsoft.Extensions.Http.dll",
+        "lib/netcoreapp3.1/Microsoft.Extensions.Http.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Http.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Http.xml",
+        "microsoft.extensions.http.3.1.6.nupkg.sha512",
+        "microsoft.extensions.http.nuspec"
       ]
     },
     "Microsoft.Extensions.Logging/3.1.6": {
@@ -2537,6 +2567,7 @@
       "Marvin.StreamExtensions >= 1.1.0",
       "Microsoft.AspNetCore.JsonPatch >= 3.1.6",
       "Microsoft.Extensions.DependencyInjection >= 3.1.6",
+      "Microsoft.Extensions.Http >= 3.1.6",
       "Microsoft.Extensions.Logging >= 3.1.6",
       "Microsoft.Extensions.Logging.Debug >= 3.1.6",
       "Newtonsoft.Json >= 12.0.3",
@@ -2593,6 +2624,10 @@
             "version": "[3.1.6, )"
           },
           "Microsoft.Extensions.DependencyInjection": {
+            "target": "Package",
+            "version": "[3.1.6, )"
+          },
+          "Microsoft.Extensions.Http": {
             "target": "Package",
             "version": "[3.1.6, )"
           },

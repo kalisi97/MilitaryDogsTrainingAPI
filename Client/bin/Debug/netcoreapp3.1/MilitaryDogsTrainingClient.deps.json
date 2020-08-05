@@ -11,6 +11,7 @@
           "Marvin.StreamExtensions": "1.1.0",
           "Microsoft.AspNetCore.JsonPatch": "3.1.6",
           "Microsoft.Extensions.DependencyInjection": "3.1.6",
+          "Microsoft.Extensions.Http": "3.1.6",
           "Microsoft.Extensions.Logging": "3.1.6",
           "Microsoft.Extensions.Logging.Debug": "3.1.6",
           "Newtonsoft.Json": "12.0.3",
@@ -91,6 +92,19 @@
       "Microsoft.Extensions.DependencyInjection.Abstractions/3.1.6": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "assemblyVersion": "3.1.6.0",
+            "fileVersion": "3.100.620.31605"
+          }
+        }
+      },
+      "Microsoft.Extensions.Http/3.1.6": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.6",
+          "Microsoft.Extensions.Logging": "3.1.6",
+          "Microsoft.Extensions.Options": "3.1.6"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Http.dll": {
             "assemblyVersion": "3.1.6.0",
             "fileVersion": "3.100.620.31605"
           }
@@ -457,6 +471,13 @@
       "sha512": "sha512-JVlypPjlPqOEyAhET6pA7TqrK+Ya8TrYe2vvqsp62TYKS87oNuReoS7XpDFW0rrOsQo66G1yYf3K0E+lJHFHuw==",
       "path": "microsoft.extensions.dependencyinjection.abstractions/3.1.6",
       "hashPath": "microsoft.extensions.dependencyinjection.abstractions.3.1.6.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Http/3.1.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Zt1+jLObgiPcB/mzb52fMABdMBZ2BmI8LFsxHIG660qiwroaF7Gn9z0aOIAtdPq1ZtEZksSXXg3SXaPka1xzHA==",
+      "path": "microsoft.extensions.http/3.1.6",
+      "hashPath": "microsoft.extensions.http.3.1.6.nupkg.sha512"
     },
     "Microsoft.Extensions.Logging/3.1.6": {
       "type": "package",

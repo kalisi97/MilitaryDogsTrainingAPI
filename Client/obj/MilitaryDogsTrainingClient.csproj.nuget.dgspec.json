@@ -53,6 +53,10 @@
               "target": "Package",
               "version": "[3.1.6, )"
             },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[3.1.6, )"
+            },
             "Microsoft.Extensions.Logging": {
               "target": "Package",
               "version": "[3.1.6, )"

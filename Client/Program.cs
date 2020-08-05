@@ -1,7 +1,9 @@
 ﻿using Client.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MilitaryDogsTrainingClient.Services;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Client
@@ -46,27 +48,44 @@ namespace Client
             serviceCollection.AddSingleton(new LoggerFactory());
 
             serviceCollection.AddLogging();
+            serviceCollection.AddHttpClient("MilitaryDogsClient", httpClient=>
+            {
+                httpClient.BaseAddress = new Uri("http://localhost:53807");
+                httpClient.Timeout = new TimeSpan(0, 0, 30);
+                httpClient.DefaultRequestHeaders.Clear();
+            }).ConfigurePrimaryHttpMessageHandler(handler =>
+           new HttpClientHandler()
+           {
+               AutomaticDecompression = System.Net.DecompressionMethods.GZip
+           });
 
+            serviceCollection.AddHttpClient<MilitaryDogsClient>()
+                    .ConfigurePrimaryHttpMessageHandler(handler =>
+                       new HttpClientHandler()
+                       {
+                           AutomaticDecompression = System.Net.DecompressionMethods.GZip
+                       });
+            ;
             // register the integration service on our container with a 
             // scoped lifetime
 
-            // For the CRUD demos
-          //  serviceCollection.AddScoped<IIntegrationService, CRUDService>();
+            // CRUD 
+            //  serviceCollection.AddScoped<IIntegrationService, CRUDService>();
 
-            // For the partial update demos
-          //   serviceCollection.AddScoped<IIntegrationService, PartialUpdateService>();
+            //  partial update 
+            //   serviceCollection.AddScoped<IIntegrationService, PartialUpdateService>();
 
-            // For the cancellation demos
-             serviceCollection.AddScoped<IIntegrationService, CancellationService>();
+            // cancellation 
+            //  serviceCollection.AddScoped<IIntegrationService, CancellationService>();
 
-            // For the HttpClientFactory demos
-            // serviceCollection.AddScoped<IIntegrationService, HttpClientFactoryInstanceManagementService>();
+            //  HttpClientFactory 
+         //   serviceCollection.AddScoped<IIntegrationService, HttpClientFactoryInstanceManagementService>();
 
-            // For the dealing with errors and faults demos
-            // serviceCollection.AddScoped<IIntegrationService, DealingWithErrorsAndFaultsService>();
+            //  dealing with errors and faults demos
+             serviceCollection.AddScoped<IIntegrationService, DealingWithErrorsAndFaultsService>();
 
             // For the custom http handlers demos
-            // serviceCollection.AddScoped<IIntegrationService, HttpHandlersService>();     
+           //  serviceCollection.AddScoped<IIntegrationService, HttpHandlersService>();     
         }
     }
 }
