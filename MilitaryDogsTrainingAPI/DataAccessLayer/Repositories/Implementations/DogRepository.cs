@@ -17,9 +17,9 @@ namespace MilitaryDogsTrainingAPI.DataAccessLayer.Repositories.Implementations
     {
         private readonly ApplicationDbContext context;
         private readonly IPropertyMappingService propertyMappingService;
-        public DogRepository(ApplicationDbContext context, IPropertyMappingService propertyMappingService) : base(context)
+        public DogRepository(ApplicationDbContext _context, IPropertyMappingService propertyMappingService) : base(_context)
         {
-            this.context = context;
+           context = _context;
             this.propertyMappingService = propertyMappingService;
         }
 
@@ -41,7 +41,18 @@ namespace MilitaryDogsTrainingAPI.DataAccessLayer.Repositories.Implementations
             
             return context.Dogs.Include(d => d.TrainingCourse).Where(filter);
         }
+        public override void Insert(Dog entity)
+        {
+            try
+            {
+                base.Insert(entity);
+            }
+            catch (Exception ex)
+            {
 
+                throw;
+            }
+        }
         public PagedList<Dog> GetAll(EntityResourceParameters parameters)
         {
             if (parameters == null)

@@ -33,7 +33,7 @@ namespace MilitaryDogsTrainingAPI.Models
         public string Gender { get; set; }
 
         [Required(ErrorMessage = "You should fill out a training course.")]
-        public int TrainingCourseId { get; set; }
+        public string TrainingCourse { get; set; }
       
     }
 }

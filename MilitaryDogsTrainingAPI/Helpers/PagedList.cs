@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace MilitaryDogsTrainingAPI.Helpers
 
         public PagedList(List<T> items, int count, int pageNumber, int pageSize)
         {
+         
             TotalCount = count;
             PageSize = pageSize;
             CurrentPage = pageNumber;

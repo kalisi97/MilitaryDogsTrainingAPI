@@ -17,7 +17,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "admin,instructor")]
+//    [Authorize(Roles = "admin,instructor")]
     public class DogController : ControllerBase
     {
         private readonly IMapper mapper;
@@ -43,7 +43,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
 
             if (!propertyMappingService.ValidMappingExistsFor<DogDTO, Dog>(parameters.OrderBy))
                 return BadRequest();
-
+            if (parameters.PageSize == 0) parameters.PageSize = dogService.GetAll().ToList().Count();
             var dogs = dogService.GetAll(parameters);
             var previousPageLink = dogs.HasPrevious ?
              CreateDogsResourceUri(parameters,
@@ -69,13 +69,13 @@ namespace MilitaryDogsTrainingAPI.Controllers
             return Ok(dogsDTO);
         }
 
-        [HttpGet("name")]
-
-        public ActionResult<IEnumerable<DogDTO>> Get(string name)
+        [HttpGet("id")]
+        [AllowAnonymous]
+        public ActionResult<DogDTO> Get(int id)
         {
-            var dogs = dogService.GetAll(d => d.Name == name);
-            if (dogs == null) return NotFound();
-            var dogDTO = mapper.Map<IEnumerable<DogDTO>>(dogs);
+            var dog = dogService.GetById(id);
+            if (dog == null) return NotFound();
+            var dogDTO = mapper.Map<DogDTO>(dog);
             return Ok(dogDTO);
         }
 
@@ -83,7 +83,7 @@ namespace MilitaryDogsTrainingAPI.Controllers
         public ActionResult<DogDTO> Post([FromBody] DogForCreationDTO model)
         {
             var dog = mapper.Map<Dog>(model);
-            TrainingCourse trainingCourse = trainingCourseService.GetById(dog.TrainingCourseId);
+            TrainingCourse trainingCourse = trainingCourseService.GetBy(t=>t.Name == model.TrainingCourse);
             Dog dogToInsert = new Dog()
             {
                 Breed = dog.Breed,
@@ -91,34 +91,44 @@ namespace MilitaryDogsTrainingAPI.Controllers
                 DateOfBirth = dog.DateOfBirth,
                 Gender = dog.Gender,
                 Name = dog.Gender,
-                TrainingCourseId = trainingCourse.TrainingCourseId
+                TrainingCourse = trainingCourse
             };
             dogService.Insert(dog);
             DogDTO dogDTO = mapper.Map<DogDTO>(dog);
-            return Created($"api/dogs/get/{dogDTO.Name}", dogDTO);
+            return Ok(dogDTO);
+          //  return Created($"api/dogs/get/{dogDTO.Name}", dogDTO);
         }
 
-        [HttpPut("dogId")]
-        public ActionResult<DogDTO> Put(int dogId, [FromBody] DogForUpdateDTO model)
+        [HttpPut]
+        public ActionResult<DogDTO> Put([FromBody] DogForUpdateDTO model)
         {
-            var dog = mapper.Map<Dog>(model);
-            TrainingCourse trainingCourse = trainingCourseService.GetById(model.TrainingCourseId);
-            Dog dogFromDatabase = dogService.GetById(dogId);
-            if (dogFromDatabase == null) return NotFound();
-            dogFromDatabase.Breed = dog.Breed;
-            dogFromDatabase.Name = dog.Name;
-            dogFromDatabase.TaskEngagements = dog.TaskEngagements;
-            dogFromDatabase.TrainingCourseId = dog.TrainingCourseId;
-            dogFromDatabase.DateOfBirth = dog.DateOfBirth;
-            dogFromDatabase.ChipNumber = dog.ChipNumber;
-            dogService.Update(dogFromDatabase);
-            DogDTO dogDTO = mapper.Map<DogDTO>(dogFromDatabase);
-            return Created($"api/dogs/get/{dogDTO.Name}", dogDTO);
+            try
+            {
+                var dog = mapper.Map<Dog>(model);
+                TrainingCourse trainingCourse = trainingCourseService.GetBy(t => t.Name == model.TrainingCourse);
+                Dog dogFromDatabase = dogService.GetById(model.Id);
+                if (dogFromDatabase == null) return NotFound();
+                dogFromDatabase.Breed = dog.Breed;
+                dogFromDatabase.Name = dog.Name;
+                dogFromDatabase.TaskEngagements = dog.TaskEngagements;
+                dogFromDatabase.TrainingCourseId = dog.TrainingCourseId;
+                dogFromDatabase.DateOfBirth = dogFromDatabase.DateOfBirth;
+                dogFromDatabase.ChipNumber = dog.ChipNumber;
+                dogFromDatabase.TrainingCourseId = trainingCourse.TrainingCourseId;
+                dogService.Update(dogFromDatabase);
+                DogDTO dogDTO = mapper.Map<DogDTO>(dogFromDatabase);
+                //    return Created($"api/dogs/get/{dogDTO.Name}", dogDTO);
+                return Ok(dogDTO);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         [HttpDelete("dogId")]
-
-        public IActionResult Delete(int dogId)
+        public ActionResult Delete(int dogId)
         {
             Dog dogFromDatabase = dogService.GetById(dogId);
             if (dogFromDatabase == null) return NotFound();

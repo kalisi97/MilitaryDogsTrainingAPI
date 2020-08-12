@@ -85,7 +85,7 @@ namespace MilitaryDogsTrainingAPI
                      };
                  };
              }).AddNewtonsoftJson(options => {
-                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+               //  options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
            options.SerializerSettings.ContractResolver =
                    new CamelCasePropertyNamesContractResolver();
              }); 
@@ -95,7 +95,7 @@ namespace MilitaryDogsTrainingAPI
             services.AddScoped<ITaskEngagementService, TaskEngagementService>();
             services.AddScoped<ITrainingCourseService, TrainingCourseService>();
             services.AddScoped<IDogService, DogService>();
-            services.AddTransient<IPropertyMappingService, PropertyMappingService>();
+            services.AddScoped<IPropertyMappingService, PropertyMappingService>();
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -108,18 +108,21 @@ namespace MilitaryDogsTrainingAPI
                  .AddDefaultTokenProviders()
                  .AddEntityFrameworkStores<ApplicationDbContext>();
 
-           
+
 
 
             // Adding Authentication  
             services.AddAuthentication(options =>
             {
+                /*
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
+                */
+            });
 
             // Adding Jwt Bearer  
+            /*
             .AddJwtBearer(options =>
             {
                 options.SaveToken = true;
@@ -133,14 +136,14 @@ namespace MilitaryDogsTrainingAPI
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                 };
             });
-
+            */
 
             services.AddScoped<Seeder>();
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo() { Title = "MilitaryDogs API", Version = "v1" });
-                
+                /*
                 c.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.Http,
@@ -149,7 +152,7 @@ namespace MilitaryDogsTrainingAPI
                     Scheme = "bearer"
                 });
                 c.OperationFilter<AuthenticationRequirementsOperationFilter>();
-                
+                */
             });
         }
 

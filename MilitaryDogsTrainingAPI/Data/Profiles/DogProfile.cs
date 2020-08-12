@@ -15,11 +15,15 @@ namespace MilitaryDogsTrainingAPI.Data.Profiles
         {
             CreateMap<Dog, DogDTO>().ForMember(d=>d.TrainingCourse, map=>map.MapFrom(
                 d=>d.TrainingCourse.Name)).ForMember(d=>d.Age, map=>map.MapFrom(
-                    d=>CalculateCurrentAge.Age(d.DateOfBirth)));
-            CreateMap<DogForCreationDTO, Dog>();
-            CreateMap<DogForUpdateDTO, Dog>().ForMember(d=>d.TrainingCourseId, map=>map.MapFrom(
-                d=>d.TrainingCourseId
-                ));
+                    d=>CalculateCurrentAge.Age(d.DateOfBirth))).ForMember(d=>d.dogId, map=>
+                    map.MapFrom(d=>d.DogId));
+            CreateMap<DogForCreationDTO, Dog>().ForPath(d => d.TrainingCourse.Name, map => map.MapFrom(
+                  d => d.TrainingCourse
+                  ));
+            CreateMap<DogForUpdateDTO, Dog>().ForPath(d => d.TrainingCourse.Name, map => map.MapFrom(
+                  d => d.TrainingCourse
+                  )).ForPath(d => d.DogId, map =>
+                        map.MapFrom(d => d.Id));
             CreateMap<DogDTO, Dog>();
         }
     }

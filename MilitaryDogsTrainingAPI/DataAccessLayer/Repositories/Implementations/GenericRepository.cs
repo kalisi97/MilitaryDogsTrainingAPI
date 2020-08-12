@@ -14,9 +14,9 @@ namespace MilitaryDogsTrainingAPI.DataAccessLayer.Repositories.Implementations
     {
         private readonly ApplicationDbContext context;
 
-        public GenericRepository(ApplicationDbContext context)
+        public GenericRepository(ApplicationDbContext _context)
         {
-            this.context = context;
+           context = _context;
         }
 
         public virtual void Delete(T entity)

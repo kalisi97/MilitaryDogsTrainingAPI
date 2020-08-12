@@ -7,6 +7,6 @@ namespace MilitaryDogsTrainingAPI.Models
 {
     public class DogForUpdateDTO:DogForCreationDTO
     {
-        
+        public int Id { get; set; }
     }
 }

@@ -135,7 +135,7 @@ namespace MilitaryDogsTrainingAPI.Data
                 LockoutEnabled = true,
                 LockoutEnd = null,
                 NormalizedEmail = "instructor1@military.com",
-                NormalizedUserName = "customer1",
+                NormalizedUserName = "instructor1",
                 PasswordHash = "AQAAAAEAACcQAAAAEHiB1olFqn60xI9ojOF+8WvHgi8kuCKYRt2e5LESVrtfpEn3IhVq+HYJ7BWZDXaE9w==",
                 PhoneNumber = "064-211-95-48",
                 PhoneNumberConfirmed = false,

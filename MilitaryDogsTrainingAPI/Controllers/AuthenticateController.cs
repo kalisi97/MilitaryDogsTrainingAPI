@@ -40,8 +40,18 @@ namespace MilitaryDogsTrainingAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
+            ApplicationUser  user = null;
             //pokusava da nadje korisnika
-            var user = await userManager.FindByNameAsync(model.Username);
+            if (model.Username == "admin")
+            {
+                var userAdmin = await userManager.FindByNameAsync(model.Username);
+                user = (Admin)userAdmin;
+            }
+            else
+            {
+                var userInstructor = await userManager.FindByNameAsync(model.Username);
+                user = (Instructor)userInstructor;
+            }
             //ukoliko je korisnik nadjen i password je ok
             if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
             {
@@ -59,9 +69,9 @@ namespace MilitaryDogsTrainingAPI.Controllers
                     authClaims.Add(new Claim(ClaimTypes.Role, userRole));
                 }
                 //generise sign in kljuc
-                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
+                //    var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
                 //generise token
-                
+                /*
                 var token = new JwtSecurityToken(
                     issuer: configuration["JWT:ValidIssuer"],
                     audience: configuration["JWT:ValidAudience"],
@@ -69,15 +79,14 @@ namespace MilitaryDogsTrainingAPI.Controllers
                     claims: authClaims,
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
-                    
+                    */
                 //kaze okej
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
-                });
-                
-              
+                //   return Ok(new
+                //  {
+                //  token = new JwtSecurityTokenHandler().WriteToken(token),
+                // expiration = token.ValidTo
+                //  });
+                return Ok(user);
             }
             return Unauthorized();
 

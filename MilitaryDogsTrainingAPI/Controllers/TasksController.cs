@@ -31,7 +31,8 @@ namespace MilitaryDogsTrainingAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin,instructor")]
+     //   [Authorize(Roles = "admin,instructor")]
+     [AllowAnonymous]
         public ActionResult<IEnumerable<TaskDTO>> Get()
         {
             var tasks = taskService.GetAll();
